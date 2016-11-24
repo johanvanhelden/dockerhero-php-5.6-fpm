@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
         libicu-dev \
         libxml2-dev \
         libxslt1-dev \
+        ssmtp \
     && docker-php-ext-install -j$(nproc) mcrypt \
     && docker-php-ext-install -j$(nproc) curl \
     && docker-php-ext-install -j$(nproc) mbstring \
@@ -50,6 +51,10 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Copy the php-fpm config
 COPY ./dockerhero.fpm.conf /usr/local/etc/php-fpm.d/zzz-dockerhero.fpm.conf
+
+# Setup sSMTP
+RUN cp /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.bak
+COPY ./ssmtp.conf /etc/ssmtp/ssmtp.conf
 
 # Cleanup all downloaded packages
 RUN apt-get -y autoclean && apt-get -y autoremove && apt-get -y clean && rm -rf /var/lib/apt/lists/* && apt-get update
