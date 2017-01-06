@@ -33,7 +33,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
     && docker-php-ext-install imap \
-    && docker-php-ext-install mysql mysqli pdo pdo_mysql
+    && docker-php-ext-install mysql mysqli pdo pdo_mysql \
+    && docker-php-ext-install zip
 
 # Install cron
 RUN apt-get update && apt-get install -y \
