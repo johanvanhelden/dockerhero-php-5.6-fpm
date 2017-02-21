@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
         libxml2-dev \
         libxslt1-dev \
         ssmtp \
+        libssh2-1-dev \
     && docker-php-ext-install -j$(nproc) mcrypt \
     && docker-php-ext-install -j$(nproc) curl \
     && docker-php-ext-install -j$(nproc) mbstring \
@@ -35,6 +36,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install imap \
     && docker-php-ext-install mysql mysqli pdo pdo_mysql \
     && docker-php-ext-install zip
+
+# ssh2 module
+RUN \
+  pecl install ssh2 \
+  && echo "extension=ssh2.so" > /usr/local/etc/php/conf.d/ext-ssh2.ini
 
 # Install cron
 RUN apt-get update && apt-get install -y \
