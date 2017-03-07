@@ -37,6 +37,11 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysql mysqli pdo pdo_mysql \
     && docker-php-ext-install zip
 
+# redis module
+RUN \
+  pecl install -o -f redis \
+  &&  echo "extension=redis.so" > /usr/local/etc/php/conf.d/ext-redis.ini
+
 # ssh2 module
 RUN \
   pecl install ssh2 \
