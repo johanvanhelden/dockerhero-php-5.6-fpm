@@ -63,6 +63,7 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
 # Copy the php-fpm config
 COPY ./dockerhero.fpm.conf /usr/local/etc/php-fpm.d/zzz-dockerhero.fpm.conf
+COPY ./dockerhero.php.ini /usr/local/etc/php/conf.d/dockerhero.php.ini
 
 # Setup sSMTP
 RUN cp /etc/ssmtp/ssmtp.conf /etc/ssmtp/ssmtp.conf.bak
