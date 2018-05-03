@@ -57,7 +57,7 @@ RUN apt-get update && apt-get install -y \
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install the xdebug extension
-RUN pecl install xdebug && \
+RUN pecl install xdebug-2.5.5 && \
     docker-php-ext-enable xdebug
 
 # Copy xdebug configration for remote debugging
