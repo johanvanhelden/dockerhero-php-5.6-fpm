@@ -8,20 +8,22 @@ ENV TZ ${TZ}
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng12-dev \
-        libcurl4-nss-dev \
-        libc-client-dev \
-        libkrb5-dev \
-        firebird2.5-dev \
-        libicu-dev \
-        libxml2-dev \
-        libxslt1-dev \
-        ssmtp \
-        libssh2-1-dev \
-    && docker-php-ext-install -j$(nproc) mcrypt \
+    mysql-client \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libpng12-dev \
+    libcurl4-nss-dev \
+    libc-client-dev \
+    libkrb5-dev \
+    firebird2.5-dev \
+    libicu-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    ssmtp \
+    libssh2-1-dev
+
+RUN docker-php-ext-install -j$(nproc) mcrypt \
     && docker-php-ext-install -j$(nproc) curl \
     && docker-php-ext-install -j$(nproc) mbstring \
     && docker-php-ext-install -j$(nproc) iconv \
@@ -55,7 +57,7 @@ RUN apt-get update && apt-get install -y \
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Install the xdebug extension
-RUN pecl install xdebug && \
+RUN pecl install xdebug-2.5.5 && \
     docker-php-ext-enable xdebug
 
 # Copy xdebug configration for remote debugging
